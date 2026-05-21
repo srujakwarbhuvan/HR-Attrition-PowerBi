@@ -1,0 +1,49 @@
+Attrition Rate % = 
+DIVIDE(
+    COUNTROWS(FILTER('HR_Analytics', 'HR_Analytics'[Attrition] = "Yes")),
+    COUNTROWS('HR_Analytics'),
+    0
+) * 100
+
+
+Total Employees = 
+COUNTROWS('HR_Analytics')
+
+
+Attrited Employees = 
+CALCULATE(
+    COUNTROWS('HR_Analytics'),
+    'HR_Analytics'[Attrition] = "Yes"
+)
+
+
+Avg Monthly Income = 
+AVERAGE('HR_Analytics'[MonthlyIncome])
+
+
+Avg Income Attrited = 
+CALCULATE(
+    AVERAGE('HR_Analytics'[MonthlyIncome]),
+    'HR_Analytics'[Attrition] = "Yes"
+)
+
+
+
+Salary Slab = 
+SWITCH(
+    TRUE(),
+    'HR_Analytics'[MonthlyIncome] < 3000, "Low (<3k)",
+    'HR_Analytics'[MonthlyIncome] < 6000, "Mid (3k-6k)",
+    'HR_Analytics'[MonthlyIncome] < 10000, "High (6k-10k)",
+    "Very High (10k+)"
+)
+
+
+Age Group = 
+SWITCH(
+    TRUE(),
+    'HR_Analytics'[Age] < 25, "Under 25",
+    'HR_Analytics'[Age] < 35, "25-34",
+    'HR_Analytics'[Age] < 45, "35-44",
+    "45+"
+)
